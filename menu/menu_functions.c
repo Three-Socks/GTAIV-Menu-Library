@@ -279,7 +279,7 @@ void menu_draw(void)
 						txt_on = custom_bool_on;
 					}
 					else
-						txt_on = "On";
+						txt_on = menu_on;
 					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_on);
 				}
 				else
@@ -292,7 +292,7 @@ void menu_draw(void)
 						txt_off = custom_bool_off;
 					}
 					else
-						txt_off = "Off";
+						txt_off = menu_off;
 					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_off);
 				}
 			}
