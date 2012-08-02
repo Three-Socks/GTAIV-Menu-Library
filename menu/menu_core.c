@@ -1,18 +1,29 @@
 /**
  * This file is from Three-Socks Menu Library https://bitbucket.org/ThreeSocks/gtaiv-menu-library
  *
+ * GTAIV Menu Library
+ *
+ * @package menu
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.2
  */
 
 #pragma once
 
-void menu_core_init(void)
+void menu_core_startup(void)
 {
 	item_highlighted = 1;
 	menu_level = 1;
 	press_counter = 2;
 	press_counter_timesby = 1;
 
-	project_setup();
+	custom_bool_on = null_string;
+	custom_bool_off = null_string;
+
+	style_setup();
+
 	menu_consts_start_y = menu_start_y;
 	menu_consts_max = menu_max;
 
@@ -39,12 +50,15 @@ void menu_core_shutdown(void)
 	START_NEW_SCRIPT_WITH_ARGS("menu_gexit", &episode, 1, 128);
 	MARK_SCRIPT_AS_NO_LONGER_NEEDED("menu_gexit");
 
-	REQUEST_SCRIPT(startup_script);
-	while (!HAS_SCRIPT_LOADED(startup_script))
-		WAIT(0);
+	if (!IS_STRING_NULL(startup_script))
+	{
+		REQUEST_SCRIPT(startup_script);
+		while (!HAS_SCRIPT_LOADED(startup_script))
+			WAIT(0);
 
-	START_NEW_SCRIPT(startup_script, 128);
-	MARK_SCRIPT_AS_NO_LONGER_NEEDED(startup_script);
+		START_NEW_SCRIPT(startup_script, 128);
+		MARK_SCRIPT_AS_NO_LONGER_NEEDED(startup_script);
+	}
 
 	draw_shutdown();
 
@@ -171,7 +185,7 @@ void menu_core_catchButtonPress(void)
 	if (menu_back_pressed())
 	{
 		// Don't do anything if we are on the main menu.
-		if (menu_level != 1)
+		if (menu_level != 1 || inError)
 		{
 			// Reset the items set. So the new items can be set.
 			menu_items_set = false;

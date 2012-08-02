@@ -1,6 +1,13 @@
 /**
  * This file is from Three-Socks Menu Library https://bitbucket.org/ThreeSocks/gtaiv-menu-library
  *
+ * GTAIV Menu Library
+ *
+ * @package menu
+ * @author Three-Socks http://psx-scene.com/forums/members/three-socks/
+ * @license LICENSE.txt DON'T BE A DICK PUBLIC LICENSE (DBAD)
+ *
+ * @version 1.2
  */
 
 #pragma once
@@ -9,11 +16,25 @@
 
 Style: 1
 
-Mimics GTA Frontend.
+Name: Three-Socks Trainer.
+
+Desc: Mimics GTA Frontend.
 
 */
 
-void draw_init()
+void style_setup(void)
+{
+	// Start y positioning.
+	menu_start_y = 0.0890;
+	// Spacing between each item.
+	menu_spacing = 0.0400;
+	// Max number of items before scrolling.
+	menu_max = 14;
+	// When to start scrolling.
+	menu_start_scrolling = 7;
+}
+
+void draw_startup(void)
 {
 	SET_CINEMATIC_BUTTON_ENABLED(false);
 
@@ -43,7 +64,7 @@ void draw_init()
 	PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_READY");
 }
 
-void draw_shutdown()
+void draw_shutdown(void)
 {
 	RELEASE_TEXTURE(arrow_txd);
 	RELEASE_TEXTURE(rightarrow_txd);
@@ -234,7 +255,7 @@ void menu_draw(void)
 				{
 					set_up_draw(menu_width, menu_height, h_r, h_g, h_b, a);
 					char *txt_on;
-					if (!COMPARE_STRING(custom_bool_on, " "))
+					if (!IS_STRING_NULL(custom_bool_on))
 					{
 						toggle_pos_x = 0.2000;
 						txt_on = custom_bool_on;
@@ -247,7 +268,7 @@ void menu_draw(void)
 				{
 					set_up_draw(menu_width, menu_height, d_r, d_g, d_b, a);
 					char *txt_off;
-					if (!COMPARE_STRING(custom_bool_off, " "))
+					if (!IS_STRING_NULL(custom_bool_off))
 					{
 						toggle_pos_x = 0.2000;
 						txt_off = custom_bool_off;
