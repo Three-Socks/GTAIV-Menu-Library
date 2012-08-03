@@ -17,7 +17,7 @@
 #define menu_off "Off"
 
 // Settings
-float menu_start_y, menu_consts_start_y, menu_spacing;
+float menu_start_y, menu_consts_start_y, menu_spacing, toggle_pos_x;
 uint menu_max, menu_consts_max, menu_start_scrolling;
 
 Texture arrow_txd, rightarrow_txd;
@@ -30,6 +30,8 @@ uint menu_len;
 uint menu_level;
 bool menu_items_set;
 bool menu_shutdown;
+
+bool disableMenu;
 
 // Error
 bool inError;
@@ -72,5 +74,8 @@ char *menu_header;
 char* null_string;
 char *custom_bool_on;
 char *custom_bool_off;
+
+uint custom_float_dp;
+float custom_float_change;
 
 char *startup_script;

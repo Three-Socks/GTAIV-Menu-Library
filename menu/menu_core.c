@@ -62,7 +62,8 @@ void menu_core_shutdown(void)
 
 	draw_shutdown();
 
-	TERMINATE_THIS_SCRIPT();
+	if (!disableMenu)
+		TERMINATE_THIS_SCRIPT();
 }
 
 void menu_core_catchButtonPress(void)
@@ -120,10 +121,17 @@ void menu_core_catchButtonPress(void)
 		}
 		else if (menu_item[item_highlighted].type == 2)
 		{
-			if (menu_item[item_highlighted].float_val == 1.0)
+			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val == 1.0)
 				menu_item[item_highlighted].float_val = menu_item[item_highlighted].extra_val;
 			else
-				menu_item[item_highlighted].float_val = menu_item[item_highlighted].float_val - 0.100;
+			{
+				float minus;
+				if (custom_float_change != 0)
+					minus = custom_float_change;
+				else
+					minus = 0.100;
+				menu_item[item_highlighted].float_val = menu_item[item_highlighted].float_val - minus;
+			}
 
 			PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_SERVER_OPTION_CHANGE");
 		}
@@ -142,10 +150,17 @@ void menu_core_catchButtonPress(void)
 		}
 		else if (menu_item[item_highlighted].type == 2)
 		{
-			if (menu_item[item_highlighted].float_val == menu_item[item_highlighted].extra_val)
+			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val == menu_item[item_highlighted].extra_val)
 				menu_item[item_highlighted].float_val = 1.0;
 			else
-				menu_item[item_highlighted].float_val = menu_item[item_highlighted].float_val + 0.100;
+			{
+				float plus;
+				if (custom_float_change != 0)
+					plus = custom_float_change;
+				else
+					plus = 0.100;
+				menu_item[item_highlighted].float_val = menu_item[item_highlighted].float_val + plus;
+			}
 			
 			PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_SERVER_OPTION_CHANGE");
 		}
@@ -206,7 +221,7 @@ void menu_core_catchButtonPress(void)
 				inError = false;
 			}
 		}
-		else 
+		else if (!disableMenu)
 			menu_core_shutdown();
 
 		PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_SERVER_HIGHLIGHT");

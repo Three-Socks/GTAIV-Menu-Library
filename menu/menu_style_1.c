@@ -122,7 +122,7 @@ void drawHeader()
 	DRAW_RECT(x + (0.35 * 0.50000000), (y + -0.00370000) + 0.03450000, (0.2250 - 0.01000000) - 0.01000000, 0.00300000, 255, 255, 255, 255);
 }
 
-void drawCurvedWindow(void)
+void drawWindow(void)
 {
 	float x, y, x2, y2;
 
@@ -200,18 +200,32 @@ void menu_draw(void)
 			if (menu_item[I].type == 1 || menu_item[I].type == 2)
 			{
 				float left_pos_x, main_pos_x;
+				uint dp;
 
 				if (menu_item[I].type == 2)
 				{
-					if (menu_item[I].float_val >= 10.0)
+					if (custom_float_dp != 0)
+						dp = custom_float_dp;
+					else
+						dp = 1;
+
+					if (dp == 1)
 					{
-						left_pos_x = 0.2260;
-						main_pos_x = 0.2370;
+						if (menu_item[I].float_val >= 10.0)
+						{
+							left_pos_x = 0.2260;
+							main_pos_x = 0.2370;
+						}
+						else if (menu_item[I].float_val < 10.0)
+						{
+							left_pos_x = 0.2370;
+							main_pos_x = 0.2470;
+						}
 					}
-					else if (menu_item[I].float_val < 10.0)
+					else if (dp == 3)
 					{
-						left_pos_x = 0.2370;
-						main_pos_x = 0.2470;
+						left_pos_x = 0.2060;
+						main_pos_x = 0.2170;
 					}
 				}
 				else
@@ -246,7 +260,7 @@ void menu_draw(void)
 				if (menu_item[I].type == 1)
 					DISPLAY_TEXT_WITH_NUMBER(main_pos_x, Ipos_y, "NUMBR", menu_item[I].num_val);
 				else if (menu_item[I].type == 2)
-					DISPLAY_TEXT_WITH_FLOAT(main_pos_x, Ipos_y, "NUMBR", menu_item[I].float_val, 1);
+					DISPLAY_TEXT_WITH_FLOAT(main_pos_x, Ipos_y, "NUMBR", menu_item[I].float_val, dp);
 				DRAW_SPRITE(rightarrow_txd, 0.2850, Ipos_y + 0.0150, 0.0160, 0.0160, 0.0000, r, g, b, a);
 			}
 			else if (menu_item[I].type == 3)

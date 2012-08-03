@@ -135,7 +135,7 @@ void drawHeader()
 	DISPLAY_TEXT_WITH_LITERAL_STRING(0.5000, title_y, "STRING", menu_header);
 }
 
-void drawCurvedWindow(void)
+void drawWindow(void)
 {
 	HIDE_HELP_TEXT_THIS_FRAME();
 	DRAW_RECT(0.5000, 0.5000, 1.0000, 1.0000, 0, 0, 0, 167);
@@ -166,9 +166,7 @@ void menu_draw(void)
 	h_r = 251, h_g = 162, h_b = 6;
 	//h_r = 206, h_g = 160, h_b = 22;
 
-	float pos_x = 0.2000,
-
-	toggle_pos_x = 0.5000, 
+	float pos_x = 0.2000, 
 
 	menu_width = 0.3100, menu_height = 0.4550;
 
@@ -203,26 +201,20 @@ void menu_draw(void)
 					set_up_draw(menu_width, menu_height, h_r, h_g, h_b, a);
 					char *txt_on;
 					if (!IS_STRING_NULL(custom_bool_on))
-					{
-						toggle_pos_x = 0.5000;
 						txt_on = custom_bool_on;
-					}
 					else
 						txt_on = menu_on;
-					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_on);
+					DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x + toggle_pos_x, Ipos_y, "STRING", txt_on);
 				}
 				else
 				{
 					set_up_draw(menu_width, menu_height, d_r, d_g, d_b, a);
 					char *txt_off;
 					if (!IS_STRING_NULL(custom_bool_off))
-					{
-						toggle_pos_x = 0.5000;
 						txt_off = custom_bool_off;
-					}
 					else
 						txt_off = menu_off;
-					DISPLAY_TEXT_WITH_LITERAL_STRING(toggle_pos_x, Ipos_y, "STRING", txt_off);
+					DISPLAY_TEXT_WITH_LITERAL_STRING(pos_x + toggle_pos_x, Ipos_y, "STRING", txt_off);
 				}
 			}
 		}
