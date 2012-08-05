@@ -121,7 +121,7 @@ void menu_core_catchButtonPress(void)
 		}
 		else if (menu_item[item_highlighted].type == 2)
 		{
-			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val == 1.0)
+			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val <= (float) 0.1)
 				menu_item[item_highlighted].float_val = menu_item[item_highlighted].extra_val;
 			else
 			{
@@ -151,7 +151,7 @@ void menu_core_catchButtonPress(void)
 		else if (menu_item[item_highlighted].type == 2)
 		{
 			if (menu_item[item_highlighted].extra_val != 0 && menu_item[item_highlighted].float_val == menu_item[item_highlighted].extra_val)
-				menu_item[item_highlighted].float_val = 1.0;
+				menu_item[item_highlighted].float_val = 0.0;
 			else
 			{
 				float plus;
