@@ -54,6 +54,8 @@ void draw_startup(void)
 
 	BLOCK_PED_WEAPON_SWITCHING(GetPlayerPed(), true);
 
+	SET_PLAYER_CAN_DO_DRIVE_BY(GetPlayerIndex(), false);
+
 	REQUEST_STREAMED_TXD("network", 0);
 	while (!HAS_STREAMED_TXD_LOADED("network"))
 		WAIT(0);
@@ -73,6 +75,8 @@ void draw_shutdown(void)
 	ENABLE_FRONTEND_RADIO();
 
 	BLOCK_PED_WEAPON_SWITCHING(GetPlayerPed(), false);
+
+	SET_PLAYER_CAN_DO_DRIVE_BY(GetPlayerIndex(), true);
 
 	SET_CINEMATIC_BUTTON_ENABLED(true);
 
