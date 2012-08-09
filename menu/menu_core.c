@@ -14,13 +14,16 @@
 
 void menu_core_startup(void)
 {
-	item_highlighted = 1;
-	menu_level = 1;
-	press_counter = 2;
-	press_counter_timesby = 1;
+	if (menu_level == 0)
+	{
+		item_highlighted = 1;
+		menu_level = 1;
+		press_counter = 2;
+		press_counter_timesby = 1;
 
-	custom_bool_on = null_string;
-	custom_bool_off = null_string;
+		custom_bool_on = null_string;
+		custom_bool_off = null_string;
+	}
 
 	style_setup();
 
@@ -221,7 +224,10 @@ void menu_core_catchButtonPress(void)
 			}
 		}
 		else if (!disableMenu)
+		{
 			menu_core_shutdown();
+			menu_level = 0;
+		}
 
 		PLAY_AUDIO_EVENT("FRONTEND_MENU_MP_SERVER_HIGHLIGHT");
 	}
