@@ -30,6 +30,17 @@ void menu_core_startup(void)
 	menu_consts_start_y = menu_start_y;
 	menu_consts_max = menu_max;
 
+	// Set up the menu_start_y for when loading menu back from disabled.
+	if (menu_len > menu_consts_max && item_highlighted > menu_start_scrolling)
+	{
+		uint I;
+		for (I = (menu_start_scrolling + 1); I <= item_highlighted; I++)
+		{
+			menu_start_y -= menu_spacing;
+			menu_max++;
+		}
+	}
+
 	REQUEST_SCRIPT("menu_globals");
 	while (!HAS_SCRIPT_LOADED("menu_globals"))
 		WAIT(0);
